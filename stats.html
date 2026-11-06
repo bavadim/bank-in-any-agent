@@ -62,7 +62,7 @@
     if (event.startsWith('day_') && event.endsWith('_views')) $('day-views').textContent = value === null ? 'н/д' : format.format(value);
     if (event.startsWith('day_') && event.endsWith('_unique')) $('day-unique').textContent = value === null ? 'н/д' : format.format(value);
   }
-  async function read(event) {
+  async function read(event, attempt = 0) {
     try {
       const response = await fetch(config.api + '/get/' + encodeURIComponent(namespace + '_' + event), {
         mode: 'cors', credentials: 'omit', cache: 'no-store', referrerPolicy: 'no-referrer', signal: AbortSignal.timeout(10000)
@@ -72,7 +72,13 @@
       const data = await response.json(), value = Number(data.value);
       if (!Number.isFinite(value) || value < 0) throw new Error('invalid counter');
       render(event, value);
-    } catch { failures++; render(event, null); }
+    } catch {
+      if (attempt === 0) {
+        await new Promise(resolve => setTimeout(resolve, 300));
+        return read(event, 1);
+      }
+      failures++; render(event, null);
+    }
   }
   async function pool(events) {
     let index = 0;
