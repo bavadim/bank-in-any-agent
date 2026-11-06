@@ -93,6 +93,10 @@
     {
       "event": "sources_list",
       "label": "Развернули список источников"
+    },
+    {
+      "event": "source_team",
+      "label": "Технический профиль команды"
     }
   ],
   "links": {
@@ -179,6 +183,12 @@
       "label": "Наши скиллы для маркетплейсов ↗",
       "href": "https://github.com/bavadim/marketplace-agent-skills",
       "display": "github.com/bavadim/marketplace-agent-skills"
+    },
+    "mailto:bavadim@gmail.com": {
+      "event": "link_2965d3db6fd5",
+      "label": "bavadim@gmail.com",
+      "href": "mailto:bavadim@gmail.com",
+      "display": "bavadim@gmail.com"
     },
     "https://wb-bank.ru/documents/obshchie-usloviya-kd.pdf": {
       "event": "link_54a893846229",
