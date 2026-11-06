@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#141416">
+<title>Статистика питча · doomers</title>
+<style>
+@font-face{font-family:Inter;src:url('assets/inter-regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Inter;src:url('assets/inter-semibold.woff2') format('woff2');font-weight:600 900;font-display:swap}
+:root{color-scheme:dark;--bg:#141416;--panel:#202024;--line:#38383d;--white:#fafbf5;--muted:#b0b0b9;--lime:#d6fa72}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:16px/1.6 Inter,Arial,sans-serif}.wrap{width:min(1120px,calc(100% - 64px));margin:auto}header{border-bottom:1px solid var(--line);padding:22px 0}nav{display:flex;justify-content:space-between;gap:20px;align-items:center}a{color:var(--lime);text-underline-offset:4px}button,input{font:inherit}button{cursor:pointer;border:1px solid #6d7956;color:var(--lime);border-radius:999px;background:transparent;padding:10px 20px}button:hover{background:#28301e}button:disabled{opacity:.5;cursor:wait}a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #b8a8f6;outline-offset:5px}main{padding:44px 0 70px}h1{font-size:clamp(32px,4vw,52px);line-height:1.1;letter-spacing:-.055em;margin:0 0 16px}h2{font-size:22px;letter-spacing:-.03em;margin:0 0 20px}.intro{color:var(--muted);margin:0 0 28px}.toolbar{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:30px}.status{font-size:13px;color:var(--muted)}.badge{display:inline-block;color:var(--lime);font-size:12px;border:1px solid #566441;border-radius:999px;padding:4px 11px;margin-bottom:18px}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:34px}.card{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:22px}.card strong{display:block;font-size:40px;line-height:1.2;letter-spacing:-.06em;font-weight:600}.card span{display:block;color:var(--muted);font-size:13px;margin-top:10px}.day{display:flex;align-items:center;gap:20px;flex-wrap:wrap;border-block:1px solid var(--line);padding:20px 0;margin-bottom:36px}.day label{display:flex;gap:12px;align-items:center}input[type=date]{border:1px solid #62626a;background:var(--panel);color:var(--white);border-radius:8px;padding:7px 10px}.day-value{color:var(--muted);font-size:14px}.day-value b{color:var(--white);font-weight:600}.panels{display:grid;grid-template-columns:1fr 1fr;gap:28px}section.panel,details.panel{border:1px solid var(--line);border-radius:16px;padding:24px;min-width:0}table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;padding:11px 0;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:400}td:last-child,th:last-child{text-align:right;padding-left:18px;white-space:nowrap}tbody tr:last-child td{border-bottom:0}.link-title{color:var(--white);text-decoration:none}.link-title:hover{color:var(--lime);text-decoration:underline}.link-url{display:block;max-width:720px;overflow-wrap:anywhere;color:var(--muted);font-size:11px;margin-top:3px}.links-panel{margin-top:28px}summary{cursor:pointer;font-size:20px;font-weight:600;letter-spacing:-.025em}details[open]>summary{margin-bottom:20px}.small{font-size:13px;color:var(--muted)}.settings{margin-top:30px;padding-top:24px;border-top:1px solid var(--line)}.exclude{display:flex;gap:10px;align-items:center;cursor:pointer}.exclude input{accent-color:var(--lime);width:18px;height:18px}.settings p{max-width:850px}.error{color:#ffbcad}.count-error{color:#ffbcad}footer{color:var(--muted);font-size:12px;margin-top:30px}.section-name{display:flex;align-items:center;gap:10px}.section-dot{width:6px;height:6px;border-radius:50%;background:var(--lime);flex:none}#test-badge[hidden]{display:none}
+@media(max-width:760px){.wrap{width:calc(100% - 36px)}main{padding-top:32px}.cards{grid-template-columns:1fr 1fr;gap:12px}.card{padding:18px}.card strong{font-size:34px}.panels{grid-template-columns:1fr}.toolbar{gap:12px}.panel{padding:19px!important}.day{gap:12px}.intro{font-size:14px}.day-value{font-size:13px}nav{font-size:13px}.link-url{font-size:10px}}
+</style>
+</head>
+<body><header><nav class="wrap"><b>doomers / статистика</b><a href="./">Открыть питч ↗</a></nav></header>
+<main class="wrap"><span class="badge" id="test-badge" hidden>Тестовый контур · в основную статистику не входит</span><h1>Как смотрят питч</h1><p class="intro">Открытия, уникальные браузеры, клики и просмотр разделов. Сбор с 7 ноября 2026 года.</p>
+<div class="toolbar"><button id="refresh" type="button">Обновить</button><span class="status" id="status" role="status" aria-live="polite">Загружаем счётчики…</span></div>
+<div class="cards"><div class="card"><strong id="views">—</strong><span>открытий страницы</span></div><div class="card"><strong id="unique">—</strong><span>уникальных браузеров</span></div><div class="card"><strong id="pdf">—</strong><span>нажатий на PDF</span></div><div class="card"><strong id="share">—</strong><span>нажатий «Поделиться»</span></div></div>
+<div class="day"><label for="day">За день <input type="date" id="day"></label><span class="day-value">Открытия: <b id="day-views">—</b></span><span class="day-value">Уникальные браузеры: <b id="day-unique">—</b></span><span class="small">время Москвы</span></div>
+<div class="panels"><section class="panel"><h2>До каких разделов дошли</h2><table><thead><tr><th>Раздел</th><th>Открытия</th></tr></thead><tbody id="sections"></tbody></table><p class="small">Заголовок появился на экране. Повторная прокрутка в том же открытии не прибавляет счётчик.</p></section><section class="panel"><h2>Кнопки и действия</h2><table><thead><tr><th>Действие</th><th>Счётчик</th></tr></thead><tbody id="actions"></tbody></table></section></div>
+<details class="panel links-panel" id="links-details"><summary>На какие ссылки нажимали <span id="links-total">—</span></summary><table><thead><tr><th>Ссылка</th><th>Клики</th></tr></thead><tbody id="links"></tbody></table></details>
+<div class="settings"><label class="exclude"><input id="exclude" type="checkbox">Не учитывать мои посещения из этого браузера</label><p class="small">Уникальность запоминается в localStorage браузера. После его очистки или с другого устройства посетитель посчитается заново. PDF и шаринг считаются по нажатию на кнопку.</p><p class="small">Счётчики публичные. Страница статистики себя не учитывает. <a href="https://countapi.mileshilliard.com/" target="_blank" rel="noopener noreferrer">CountAPI ↗</a></p></div>
+<footer>Инвестиции по ходу дела · команда doomers</footer></main>
+<script>(() => {
+  'use strict';
+  const config = {"namespace":"doomers_pitch_20261107_d7c84e92","api":"https://countapi.mileshilliard.com/api/v1","timezone":"Europe/Moscow","since":"2026-11-07","site":"https://bavadim.github.io/bank-in-any-agent/","sections":[{"id":"thesis","label":"Вступление и четыре основания"},{"id":"mechanism","label":"Как работает"},{"id":"case","label":"Пример сценария"},{"id":"scale","label":"Экономика и ROI"},{"id":"risks","label":"Риски и эксперимент"},{"id":"team","label":"Команда и предложение"},{"id":"sources","label":"Источники"}],"buttons":{"show-original":"image_original","show-concept":"image_concept","image-zoom":"image_zoom","open-product-settings":"settings_product","open-roi-settings":"settings_roi"},"actions":[{"event":"calculator","label":"Открытия с использованием калькулятора"},{"event":"image_original","label":"Открыли исходный скриншот"},{"event":"image_concept","label":"Открыли концепт диалога"},{"event":"image_zoom","label":"Увеличили изображение"},{"event":"settings_product","label":"Открыли чек, срок и тариф"},{"event":"settings_roi","label":"Открыли расходы и маржу"},{"event":"source_apps","label":"Пояснение: смена интерфейса"},{"event":"source_banks","label":"Пояснение: банки маркетплейсов"},{"event":"source_audience","label":"Пояснение: аудитория"},{"event":"source_game","label":"Пояснение: игровая механика"},{"event":"source_goal","label":"Пояснение: накопление на цель"},{"event":"source_calculator","label":"Методика калькулятора"},{"event":"sources_list","label":"Развернули список источников"}],"links":{"@#thesis":{"event":"link_5a9c20b64514","label":"↗ doomers","href":"https://bavadim.github.io/bank-in-any-agent/#thesis","display":"#thesis"},"@#scale":{"event":"link_9e4bbc573320","label":"Расчёт ↓","href":"https://bavadim.github.io/bank-in-any-agent/#scale","display":"#scale"},"https://www.gartner.com/en/newsroom/press-releases/2025-01-15-gartner-predicts-mobile-app-usage-will-decrease-25-percent-due-to-ai-assistants-by-2027":{"event":"link_33bc8b2de95c","label":"Gartner, 2025 ↗","href":"https://www.gartner.com/en/newsroom/press-releases/2025-01-15-gartner-predicts-mobile-app-usage-will-decrease-25-percent-due-to-ai-assistants-by-2027","display":"www.gartner.com/en/newsroom/press-releases/2025-01-15-gartner-predicts-mobile-app-usage-will-decrease-25-percent-due-to-ai-assistants-by-2027"},"https://developer.tbank.ru/invest/mcp":{"event":"link_f9413f6d46cd","label":"T-Invest MCP ↗","href":"https://developer.tbank.ru/invest/mcp","display":"developer.tbank.ru/invest/mcp"},"https://www.cbr.ru/finorg/foinfo/":{"event":"link_59b8940fd7fa","label":"Озон Банк / ЦБ ↗","href":"https://www.cbr.ru/finorg/foinfo/?id=2000000261279","display":"www.cbr.ru/finorg/foinfo/"},"https://ir.ozon.com/ru/sth/ozon-obyavlyaet-finansovye-rezultaty-za-chetvertyy-kvartal-2025-goda-i-2025-god-18833bbf":{"event":"link_a1426e460c00","label":"Ozon, 2025 ↗","href":"https://ir.ozon.com/ru/sth/ozon-obyavlyaet-finansovye-rezultaty-za-chetvertyy-kvartal-2025-goda-i-2025-god-18833bbf","display":"ir.ozon.com/ru/sth/ozon-obyavlyaet-finansovye-rezultaty-za-chetvertyy-kvartal-2025-goda-i-2025-god-18833bbf"},"https://www.cbr.ru/Collection/Collection/File/59712/review_broker_Q4_2025.pdf":{"event":"link_4f39630fac67","label":"ЦБ, 2025 ↗","href":"https://www.cbr.ru/Collection/Collection/File/59712/review_broker_Q4_2025.pdf","display":"www.cbr.ru/Collection/Collection/File/59712/review_broker_Q4_2025.pdf"},"https://ir.yandex.ru/press-releases":{"event":"link_1e018bc7aad0","label":"Яндекс, 2026 ↗","href":"https://ir.yandex.ru/press-releases?id=29-10-2026-01&year=2026","display":"ir.yandex.ru/press-releases"},"https://www.fca.org.uk/publication/research-notes/research-note-digital-engagement-practices-trading-apps-experiment.pdf":{"event":"link_568c831d9c27","label":"FCA, 2024 ↗","href":"https://www.fca.org.uk/publication/research-notes/research-note-digital-engagement-practices-trading-apps-experiment.pdf","display":"www.fca.org.uk/publication/research-notes/research-note-digital-engagement-practices-trading-apps-experiment.pdf"},"@#mechanism":{"event":"link_b76d8726222c","label":"Как возникает этот момент ↓","href":"https://bavadim.github.io/bank-in-any-agent/#mechanism","display":"#mechanism"},"@#case":{"event":"link_686918626100","label":"Один из примеров ↓","href":"https://bavadim.github.io/bank-in-any-agent/#case","display":"#case"},"https://poverty-action.org/sites/default/files/publications/getting-to-the-top-of-mind.pdf":{"event":"link_d61b6b2cdcd7","label":"Исследование целевых напоминаний ↗","href":"https://poverty-action.org/sites/default/files/publications/getting-to-the-top-of-mind.pdf","display":"poverty-action.org/sites/default/files/publications/getting-to-the-top-of-mind.pdf"},"https://t-technologies.ru/ar2025t-technologies/download/full-reports/T_tech_AR25.pdf":{"event":"link_479319021a8b","label":"Для сравнения: лайфстайл — 552 млн ₽/мес. ↗","href":"https://t-technologies.ru/ar2025t-technologies/download/full-reports/T_tech_AR25.pdf#page=261","display":"t-technologies.ru/ar2025t-technologies/download/full-reports/T_tech_AR25.pdf"},"https://github.com/bavadim/marketplace-agent-skills":{"event":"link_44156559d5dc","label":"Наши скиллы для маркетплейсов ↗","href":"https://github.com/bavadim/marketplace-agent-skills","display":"github.com/bavadim/marketplace-agent-skills"},"https://wb-bank.ru/documents/obshchie-usloviya-kd.pdf":{"event":"link_54a893846229","label":"документы WB Банка","href":"https://wb-bank.ru/documents/obshchie-usloviya-kd.pdf","display":"wb-bank.ru/documents/obshchie-usloviya-kd.pdf"},"https://www.interfax.ru/business/1126025":{"event":"link_d174db506c6f","label":"ВТБ и RWB, 30.10.2026","href":"https://www.interfax.ru/business/1126025","display":"www.interfax.ru/business/1126025"},"https://www.tbank.ru/invest/tariffs/":{"event":"link_a1017be39f63","label":"Тарифы Т-Инвестиций","href":"https://www.tbank.ru/invest/tariffs/","display":"www.tbank.ru/invest/tariffs/"},"https://cdn.t-capital-funds.ru/static/documents/amendments_008_TMON.pdf":{"event":"link_b6f598a3639a","label":"Правила фонда TMON, изменение №8","href":"https://cdn.t-capital-funds.ru/static/documents/amendments_008_TMON.pdf","display":"cdn.t-capital-funds.ru/static/documents/amendments_008_TMON.pdf"},"https://www.tbank.ru/invest/help/services/capital/about/how-to-invest/":{"event":"link_5b7ccb947a60","label":"Условия собственных фондов","href":"https://www.tbank.ru/invest/help/services/capital/about/how-to-invest/","display":"www.tbank.ru/invest/help/services/capital/about/how-to-invest/"},"https://sberanalytics.ru/researches/online-payments":{"event":"link_457189876259","label":"СберАналитика, 17.12.2025","href":"https://sberanalytics.ru/researches/online-payments","display":"sberanalytics.ru/researches/online-payments"}}};
+  const testing = new URLSearchParams(location.search).get('test') === '1';
+  const namespace = config.namespace + (testing ? '_qa' : '');
+  const $ = id => document.getElementById(id);
+  const format = new Intl.NumberFormat('ru-RU');
+  const today = () => new Intl.DateTimeFormat('sv-SE', { timeZone: config.timezone }).format(new Date());
+  let busy = false, linksLoaded = false, failures = 0;
+  $('test-badge').hidden = !testing;
+  $('day').value = today(); $('day').max = today(); $('day').min = config.since;
+  try { $('exclude').checked = localStorage.getItem(config.namespace + ':exclude') === '1'; } catch { $('exclude').disabled = true; }
+  $('exclude').addEventListener('change', () => {
+    try { localStorage.setItem(config.namespace + ':exclude', $('exclude').checked ? '1' : '0'); }
+    catch { $('exclude').disabled = true; }
+  });
+  function countCell(event) {
+    const td = document.createElement('td'); td.dataset.event = event; td.textContent = '—'; return td;
+  }
+  for (const section of config.sections) {
+    const row = document.createElement('tr'), name = document.createElement('td');
+    name.textContent = section.label; row.append(name, countCell('section_' + section.id)); $('sections').append(row);
+  }
+  for (const action of config.actions) {
+    const row = document.createElement('tr'), name = document.createElement('td');
+    name.textContent = action.label; row.append(name, countCell(action.event)); $('actions').append(row);
+  }
+  for (const item of Object.values(config.links)) {
+    const row = document.createElement('tr'), name = document.createElement('td'), link = document.createElement('a'), url = document.createElement('span');
+    link.textContent = item.label; link.href = item.href; link.className = 'link-title'; link.target = '_blank'; link.rel = 'noopener noreferrer';
+    url.textContent = item.display; url.className = 'link-url'; name.append(link, url); row.append(name, countCell(item.event)); $('links').append(row);
+  }
+  const otherRow = document.createElement('tr'), otherLabel = document.createElement('td'); otherLabel.textContent = 'Другие ссылки'; otherRow.append(otherLabel, countCell('link_other')); $('links').append(otherRow);
+  function render(event, value) {
+    const targets = [...document.querySelectorAll('[data-event]')].filter(item => item.dataset.event === event);
+    if (['views','unique','pdf','share'].includes(event)) targets.push($(event));
+    if (event === 'links') targets.push($('links-total'));
+    for (const target of targets) { target.textContent = value === null ? 'н/д' : format.format(value); target.classList.toggle('count-error', value === null); }
+    if (event.startsWith('day_') && event.endsWith('_views')) $('day-views').textContent = value === null ? 'н/д' : format.format(value);
+    if (event.startsWith('day_') && event.endsWith('_unique')) $('day-unique').textContent = value === null ? 'н/д' : format.format(value);
+  }
+  async function read(event) {
+    try {
+      const response = await fetch(config.api + '/get/' + encodeURIComponent(namespace + '_' + event), {
+        mode: 'cors', credentials: 'omit', cache: 'no-store', referrerPolicy: 'no-referrer', signal: AbortSignal.timeout(10000)
+      });
+      if (response.status === 404) { render(event, 0); return; }
+      if (!response.ok) throw new Error('counter unavailable');
+      const data = await response.json(), value = Number(data.value);
+      if (!Number.isFinite(value) || value < 0) throw new Error('invalid counter');
+      render(event, value);
+    } catch { failures++; render(event, null); }
+  }
+  async function pool(events) {
+    let index = 0;
+    await Promise.all(Array.from({ length: Math.min(4, events.length) }, async () => { while (index < events.length) await read(events[index++]); }));
+  }
+  async function refresh(includeLinks = false) {
+    if (busy) return;
+    busy = true; failures = 0; $('refresh').disabled = true; $('day').disabled = true; $('status').classList.remove('error'); $('status').textContent = 'Загружаем счётчики…';
+    const date = $('day').value.replaceAll('-', '');
+    const events = includeLinks ? ['links'] : ['views','unique','pdf','share','links','day_' + date + '_views','day_' + date + '_unique',...config.sections.map(item => 'section_' + item.id),...config.actions.map(item => item.event)];
+    if (includeLinks || $('links-details').open) { events.push(...Object.values(config.links).map(item => item.event), 'link_other'); linksLoaded = true; }
+    await pool([...new Set(events)]);
+    const time = new Intl.DateTimeFormat('ru-RU', { timeZone: config.timezone, hour: '2-digit', minute: '2-digit' }).format(new Date());
+    $('status').textContent = failures ? 'Часть счётчиков недоступна. Нажмите «Обновить».' : 'Обновлено в ' + time + ' МСК';
+    $('status').classList.toggle('error', failures > 0); $('refresh').disabled = false; $('day').disabled = false; busy = false;
+    if ($('links-details').open && !linksLoaded) void refresh(true);
+  }
+  $('refresh').addEventListener('click', () => { linksLoaded = false; void refresh(); });
+  $('day').addEventListener('change', () => { if ($('day').value) void refresh(); });
+  $('links-details').addEventListener('toggle', () => { if ($('links-details').open && !linksLoaded) void refresh(true); });
+  void refresh();
+})();
+</script></body></html>

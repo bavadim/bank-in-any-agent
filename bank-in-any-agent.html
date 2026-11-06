@@ -241,4 +241,125 @@ $('share-pitch').addEventListener('click',async()=>{
 window.pitchModel=()=>model();
 })();
 </script>
+<script>
+(() => {
+  'use strict';
+  const config = {"namespace":"doomers_pitch_20261107_d7c84e92","api":"https://countapi.mileshilliard.com/api/v1","timezone":"Europe/Moscow","since":"2026-11-07","site":"https://bavadim.github.io/bank-in-any-agent/","sections":[{"id":"thesis","label":"Вступление и четыре основания"},{"id":"mechanism","label":"Как работает"},{"id":"case","label":"Пример сценария"},{"id":"scale","label":"Экономика и ROI"},{"id":"risks","label":"Риски и эксперимент"},{"id":"team","label":"Команда и предложение"},{"id":"sources","label":"Источники"}],"buttons":{"show-original":"image_original","show-concept":"image_concept","image-zoom":"image_zoom","open-product-settings":"settings_product","open-roi-settings":"settings_roi"},"actions":[{"event":"calculator","label":"Открытия с использованием калькулятора"},{"event":"image_original","label":"Открыли исходный скриншот"},{"event":"image_concept","label":"Открыли концепт диалога"},{"event":"image_zoom","label":"Увеличили изображение"},{"event":"settings_product","label":"Открыли чек, срок и тариф"},{"event":"settings_roi","label":"Открыли расходы и маржу"},{"event":"source_apps","label":"Пояснение: смена интерфейса"},{"event":"source_banks","label":"Пояснение: банки маркетплейсов"},{"event":"source_audience","label":"Пояснение: аудитория"},{"event":"source_game","label":"Пояснение: игровая механика"},{"event":"source_goal","label":"Пояснение: накопление на цель"},{"event":"source_calculator","label":"Методика калькулятора"},{"event":"sources_list","label":"Развернули список источников"}],"links":{"@#thesis":{"event":"link_5a9c20b64514","label":"↗ doomers","href":"https://bavadim.github.io/bank-in-any-agent/#thesis","display":"#thesis"},"@#scale":{"event":"link_9e4bbc573320","label":"Расчёт ↓","href":"https://bavadim.github.io/bank-in-any-agent/#scale","display":"#scale"},"https://www.gartner.com/en/newsroom/press-releases/2025-01-15-gartner-predicts-mobile-app-usage-will-decrease-25-percent-due-to-ai-assistants-by-2027":{"event":"link_33bc8b2de95c","label":"Gartner, 2025 ↗","href":"https://www.gartner.com/en/newsroom/press-releases/2025-01-15-gartner-predicts-mobile-app-usage-will-decrease-25-percent-due-to-ai-assistants-by-2027","display":"www.gartner.com/en/newsroom/press-releases/2025-01-15-gartner-predicts-mobile-app-usage-will-decrease-25-percent-due-to-ai-assistants-by-2027"},"https://developer.tbank.ru/invest/mcp":{"event":"link_f9413f6d46cd","label":"T-Invest MCP ↗","href":"https://developer.tbank.ru/invest/mcp","display":"developer.tbank.ru/invest/mcp"},"https://www.cbr.ru/finorg/foinfo/":{"event":"link_59b8940fd7fa","label":"Озон Банк / ЦБ ↗","href":"https://www.cbr.ru/finorg/foinfo/?id=2000000261279","display":"www.cbr.ru/finorg/foinfo/"},"https://ir.ozon.com/ru/sth/ozon-obyavlyaet-finansovye-rezultaty-za-chetvertyy-kvartal-2025-goda-i-2025-god-18833bbf":{"event":"link_a1426e460c00","label":"Ozon, 2025 ↗","href":"https://ir.ozon.com/ru/sth/ozon-obyavlyaet-finansovye-rezultaty-za-chetvertyy-kvartal-2025-goda-i-2025-god-18833bbf","display":"ir.ozon.com/ru/sth/ozon-obyavlyaet-finansovye-rezultaty-za-chetvertyy-kvartal-2025-goda-i-2025-god-18833bbf"},"https://www.cbr.ru/Collection/Collection/File/59712/review_broker_Q4_2025.pdf":{"event":"link_4f39630fac67","label":"ЦБ, 2025 ↗","href":"https://www.cbr.ru/Collection/Collection/File/59712/review_broker_Q4_2025.pdf","display":"www.cbr.ru/Collection/Collection/File/59712/review_broker_Q4_2025.pdf"},"https://ir.yandex.ru/press-releases":{"event":"link_1e018bc7aad0","label":"Яндекс, 2026 ↗","href":"https://ir.yandex.ru/press-releases?id=29-10-2026-01&year=2026","display":"ir.yandex.ru/press-releases"},"https://www.fca.org.uk/publication/research-notes/research-note-digital-engagement-practices-trading-apps-experiment.pdf":{"event":"link_568c831d9c27","label":"FCA, 2024 ↗","href":"https://www.fca.org.uk/publication/research-notes/research-note-digital-engagement-practices-trading-apps-experiment.pdf","display":"www.fca.org.uk/publication/research-notes/research-note-digital-engagement-practices-trading-apps-experiment.pdf"},"@#mechanism":{"event":"link_b76d8726222c","label":"Как возникает этот момент ↓","href":"https://bavadim.github.io/bank-in-any-agent/#mechanism","display":"#mechanism"},"@#case":{"event":"link_686918626100","label":"Один из примеров ↓","href":"https://bavadim.github.io/bank-in-any-agent/#case","display":"#case"},"https://poverty-action.org/sites/default/files/publications/getting-to-the-top-of-mind.pdf":{"event":"link_d61b6b2cdcd7","label":"Исследование целевых напоминаний ↗","href":"https://poverty-action.org/sites/default/files/publications/getting-to-the-top-of-mind.pdf","display":"poverty-action.org/sites/default/files/publications/getting-to-the-top-of-mind.pdf"},"https://t-technologies.ru/ar2025t-technologies/download/full-reports/T_tech_AR25.pdf":{"event":"link_479319021a8b","label":"Для сравнения: лайфстайл — 552 млн ₽/мес. ↗","href":"https://t-technologies.ru/ar2025t-technologies/download/full-reports/T_tech_AR25.pdf#page=261","display":"t-technologies.ru/ar2025t-technologies/download/full-reports/T_tech_AR25.pdf"},"https://github.com/bavadim/marketplace-agent-skills":{"event":"link_44156559d5dc","label":"Наши скиллы для маркетплейсов ↗","href":"https://github.com/bavadim/marketplace-agent-skills","display":"github.com/bavadim/marketplace-agent-skills"},"https://wb-bank.ru/documents/obshchie-usloviya-kd.pdf":{"event":"link_54a893846229","label":"документы WB Банка","href":"https://wb-bank.ru/documents/obshchie-usloviya-kd.pdf","display":"wb-bank.ru/documents/obshchie-usloviya-kd.pdf"},"https://www.interfax.ru/business/1126025":{"event":"link_d174db506c6f","label":"ВТБ и RWB, 30.10.2026","href":"https://www.interfax.ru/business/1126025","display":"www.interfax.ru/business/1126025"},"https://www.tbank.ru/invest/tariffs/":{"event":"link_a1017be39f63","label":"Тарифы Т-Инвестиций","href":"https://www.tbank.ru/invest/tariffs/","display":"www.tbank.ru/invest/tariffs/"},"https://cdn.t-capital-funds.ru/static/documents/amendments_008_TMON.pdf":{"event":"link_b6f598a3639a","label":"Правила фонда TMON, изменение №8","href":"https://cdn.t-capital-funds.ru/static/documents/amendments_008_TMON.pdf","display":"cdn.t-capital-funds.ru/static/documents/amendments_008_TMON.pdf"},"https://www.tbank.ru/invest/help/services/capital/about/how-to-invest/":{"event":"link_5b7ccb947a60","label":"Условия собственных фондов","href":"https://www.tbank.ru/invest/help/services/capital/about/how-to-invest/","display":"www.tbank.ru/invest/help/services/capital/about/how-to-invest/"},"https://sberanalytics.ru/researches/online-payments":{"event":"link_457189876259","label":"СберАналитика, 17.12.2025","href":"https://sberanalytics.ru/researches/online-payments","display":"sberanalytics.ru/researches/online-payments"}}};
+  const mode = new URLSearchParams(location.search).get('analytics');
+  const local = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
+  if (!/^https?:$/.test(location.protocol) || mode === 'off' || (local && mode !== 'test')) return;
+  const namespace = config.namespace + (mode === 'test' ? '_qa' : '');
+  const storagePrefix = namespace + ':';
+  const reached = new Set();
+  let calculatorUsed = false;
+  const ownVisit = () => {
+    try { return localStorage.getItem(config.namespace + ':exclude') === '1'; }
+    catch { return false; }
+  };
+  function day() {
+    return new Intl.DateTimeFormat('sv-SE', { timeZone: config.timezone }).format(new Date()).replaceAll('-', '');
+  }
+  async function hit(event) {
+    if (ownVisit()) return false;
+    try {
+      const response = await fetch(config.api + '/hit/' + encodeURIComponent(namespace + '_' + event), {
+        mode: 'cors', credentials: 'omit', cache: 'no-store', keepalive: true, referrerPolicy: 'no-referrer'
+      });
+      return response.ok;
+    } catch { return false; }
+  }
+  function unique(event, storageKey, value) {
+    let previous;
+    try {
+      previous = localStorage.getItem(storagePrefix + storageKey);
+      if (previous === value) return;
+      localStorage.setItem(storagePrefix + storageKey, value);
+    } catch { return; }
+    void hit(event).then(ok => {
+      if (ok) return;
+      try {
+        if (localStorage.getItem(storagePrefix + storageKey) === value) {
+          if (previous === null) localStorage.removeItem(storagePrefix + storageKey);
+          else localStorage.setItem(storagePrefix + storageKey, previous);
+        }
+      } catch { /* Storage can be disabled after the page opens. */ }
+    });
+  }
+  function opened() {
+    if (ownVisit()) return;
+    const date = day();
+    void hit('views');
+    void hit('day_' + date + '_views');
+    unique('unique', 'unique', '1');
+    unique('day_' + date + '_unique', 'unique-day', date);
+  }
+  function normalizedLink(href) {
+    try {
+      const url = new URL(href, location.href);
+      if (!/^https?:$/.test(url.protocol)) return null;
+      return url.origin === location.origin ? '@' + (url.hash || url.pathname) : url.origin + url.pathname;
+    } catch { return null; }
+  }
+  function clicked(event) {
+    if (!event.isTrusted || ownVisit() || (event.type === 'auxclick' && event.button !== 1)) return;
+    const element = event.target instanceof Element ? event.target : event.target?.parentElement;
+    if (!element) return;
+    const anchor = element.closest('a[href]');
+    if (anchor) {
+      if (anchor.id === 'download') {
+        void hit('pdf');
+        return;
+      }
+      const normalized = normalizedLink(anchor.getAttribute('href'));
+      if (!normalized) return;
+      void hit('links');
+      void hit(config.links[normalized]?.event || 'link_other');
+      return;
+    }
+    if (event.type === 'auxclick') return;
+    const button = element.closest('button');
+    if (!button || button.disabled || button.hasAttribute('data-close')) return;
+    if (button.id === 'share-pitch') { void hit('share'); return; }
+    const eventName = button.dataset.source ? 'source_' + button.dataset.source : config.buttons[button.id];
+    if (eventName) void hit(eventName);
+  }
+  document.addEventListener('click', clicked, { capture: true });
+  document.addEventListener('auxclick', clicked, { capture: true });
+  document.addEventListener('change', event => {
+    const element = event.target;
+    if (!(element instanceof HTMLInputElement)) return;
+    if (!element.closest('#scale, #product-settings, #roi-settings') || calculatorUsed) return;
+    calculatorUsed = true;
+    void hit('calculator');
+  });
+  document.getElementById('all-sources')?.addEventListener('toggle', event => {
+    if (event.target.open) void hit('sources_list');
+  });
+  const targets = [];
+  const observer = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting || entry.intersectionRatio < .5) continue;
+      const section = targets.find(item => item.element === entry.target);
+      if (!section || reached.has(section.id)) continue;
+      reached.add(section.id);
+      void hit('section_' + section.id);
+      observer.unobserve(entry.target);
+    }
+  }, { threshold: .5, rootMargin: '0px 0px -10% 0px' }) : null;
+  for (const section of config.sections) {
+    const root = document.getElementById(section.id);
+    const element = root?.querySelector('h1, h2, summary');
+    if (!element) continue;
+    targets.push({ id: section.id, element });
+    observer?.observe(element);
+  }
+  opened();
+  window.addEventListener('pageshow', event => {
+    if (!event.persisted) return;
+    reached.clear(); calculatorUsed = false; opened();
+    for (const target of targets) { observer?.unobserve(target.element); observer?.observe(target.element); }
+  });
+})();
+
+</script>
 </body></html>
