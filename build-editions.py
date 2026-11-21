@@ -77,7 +77,7 @@ def build(browser):
     index.write_text(text)
     (ROOT/'README.md').write_text(re.sub(r'PDF, \d+ страниц(?:а|ы)?',f'PDF, {pages} страниц', (ROOT/'README.md').read_text()))
     embedded=text.replace('name="pitch-format" content="website"','name="pitch-format" content="standalone"')
-    for filename in ('inter-regular.woff2','inter-semibold.woff2','plex-mono.woff2','wardrobe-original.png','wardrobe-agent-concept.png'):
+    for filename in ('inter-regular.woff2','inter-semibold.woff2','plex-mono.woff2','wardrobe-original.png','savings-concept-crop.png'):
         mime='font/woff2' if filename.endswith('.woff2') else 'image/png'
         embedded=embedded.replace('assets/'+filename,'data:'+mime+';base64,'+base64.b64encode((ROOT/'assets'/filename).read_bytes()).decode())
     embedded=embedded.replace(f'./doomers-pitch.pdf?v={rev}','data:application/pdf;base64,'+base64.b64encode(pdf).decode())

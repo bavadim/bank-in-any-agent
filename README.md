@@ -4,7 +4,7 @@
 
 - [Сайт](https://bavadim.github.io/bank-in-any-agent/)
 - [Статистика посещений и кликов](https://bavadim.github.io/bank-in-any-agent/stats.html)
-- [PDF, 10 страниц](https://bavadim.github.io/bank-in-any-agent/doomers-pitch.pdf)
+- [PDF, 11 страниц](https://bavadim.github.io/bank-in-any-agent/doomers-pitch.pdf)
 - [Автономный HTML](https://bavadim.github.io/bank-in-any-agent/bank-in-any-agent.html)
 
 PDF содержит весь питч, источники, методологию и примеры. Калькулятор представлен статичной инфографикой с параметрами по умолчанию.
