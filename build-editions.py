@@ -17,66 +17,8 @@ from websockets.sync.client import connect
 ROOT = Path(__file__).resolve().parent
 
 PRINT = r'''(() => {
-const get = id => document.getElementById(id);
-const escape = value => { const p=document.createElement('span'); p.textContent=value; return p.innerHTML; };
-const section = (label, title, body) => `<section class="sheet"><p class="print-label">${label}</p><h2>${title}</h2>${body}</section>`;
-const content = sel => document.querySelector(sel).outerHTML;
-const keys = ['calculator', 'team'];
-const panels = {};
-for (const key of keys) {
-  document.querySelector(`[data-source="${key}"]`).click();
-  panels[key] = get('evidence-body').innerHTML;
-  get('evidence-dialog').close();
-}
-const hero = get('thesis').cloneNode(true); hero.querySelector('.thesis-note').remove();
-const mechanism = get('mechanism').querySelector('.wrap').cloneNode(true);
-mechanism.querySelector('.trigger-v2 a').remove();
-const risk = [...document.querySelectorAll('.risk-item')].map(el => {
-  const clone = el.cloneNode(true); clone.querySelector('details').open=true; return clone.outerHTML;
-});
-const calc = [...get('scale').querySelectorAll('input')].map(i=>{
-  const control=i.closest('.control');
-  return `<li><b>${i.labels[0].textContent}:</b> ${escape(control.querySelector('output').textContent)}<br>${escape(control.querySelector('.funnel-result').textContent)}<br><small>${escape(control.querySelector('.funnel-caption').textContent)}</small></li>`;
-}).join('');
-const settings = [...document.querySelectorAll('#product-settings input,#roi-settings input')].map(i=>`<li>${escape(i.labels[0].textContent)}: <b>${escape(i.value)}</b></li>`).join('');
-const method = document.createElement('div'); method.innerHTML=panels.calculator;
-const methodParts=[...method.children].map(e=>e.outerHTML);
-const links = [...document.querySelectorAll('.source-list li')].map(e=>e.outerHTML);
-const caseBody = `<div class="print-case"><img src="${get('original-screenshot').getAttribute('src')}" alt="Исходный скриншот"><div>${document.querySelector('#case .section-lead').outerHTML}${content('.case-copy')}</div></div>`;
-const team=get('team').querySelector('.team-grid').outerHTML;
-const wrap = body => `<div class="paper">${body}</div>`;
-const results = content('#scale .results');
-document.body.innerHTML = [
- wrap(hero.innerHTML),
- wrap([...mechanism.children].slice(0,3).map(e=>e.outerHTML).join('')),
- section('01 / Общий механизм', 'От полезного скилла к первому взносу', mechanism.querySelector('.funnel-steps').outerHTML+mechanism.querySelector('.trigger-v2').outerHTML),
- section('02 / Пример', 'Банковский скилл продолжает подбор одежды', caseBody),
- section('03 / Экономика привлечения', 'Аудитория маркетплейса. Доход банка.', content('#scale .section-lead')+`<div class="print-economy"><ul>${calc}</ul>${results}</div>`),
- section('03 / Расчёт', 'Параметры сценария', `<ul class="print-settings">${settings}</ul>`+methodParts.slice(0,4).join('')),
- section('03 / Расчёт', 'Доход, расходы и окупаемость', methodParts.slice(4).join('')),
- section('04 / Риски', 'Ставка большая. Проверка начинается с малого.', content('.risk-scope')+`<div class="print-risk">${risk.slice(0,2).join('')}</div>`),
- section('04 / Риски', 'Критические предпосылки канала', `<div class="print-risk">${risk.slice(2,4).join('')}</div>`),
- section('04 / Эксперимент', 'Две недели на первые сигналы', `<div class="print-risk">${risk[4]}${content('.pilot')}</div>`),
- section('05 / Команда', 'От MCP — к живому сценарию.', team+panels.team+`<p>Обратная связь: ${get('feedback-email').outerHTML}</p>`),
- section('Источники', 'Данные и исследования', `<ol class="print-sources">${links.slice(0,6).join('')}</ol>`),
- section('Источники', 'Тарифы и допущения', `<ol class="print-sources">${links.slice(6).join('')}</ol>`),
-].join('');
-const css=document.createElement('style');css.textContent=`
-@page{size:A4 landscape;margin:10mm 16mm}
-body{font-size:14px;background:#fff;color:#18191b;color-scheme:light;--muted:#45484c;--white:#18191b;--lime:#354e0d;--lilac:#4a3975;--line:#cfcec7}
-body .paper,body .sheet{break-before:page; padding:0; width:auto; margin:0;break-inside:auto;zoom:.94}body .paper{zoom:.81}body .paper:first-child{break-before:auto}
-.print-label,.section-label,.eyebrow{font:12px Plex,monospace;text-transform:uppercase;color:#45484c;margin:0 0 12px}
-.paper h1{font-size:44px;line-height:1.05;letter-spacing:-.05em;margin:0 0 14px}.paper h1 em{font-style:normal;color:#354e0d}
-.sheet>h2,.paper>h2{font-size:34px;line-height:1.08;letter-spacing:-.045em;margin:0 0 22px}
-.sheet h3,.paper h3{font-size:18px}.sheet p,.paper p,.sheet li{font-size:14px;line-height:1.5}
-.thesis-grid-v2{margin-top:22px}.thesis-card-v2,.thesis-card-v2:nth-child(even){padding:16px 18px}.thesis-card-v2 h2{font-size:24px;margin-bottom:10px}.thesis-meta-v2{margin-bottom:10px}.thesis-card-v2>p,.thesis-card-v2 .thesis-proof-v2{font-size:13px;margin-bottom:9px}.status,.status.hyp{color:#354e0d}.hero-subtitle-v2 b{color:#18191b}#hero-revenue-value{color:#354e0d}
-.value-pair{margin-top:18px}.value-pair article{padding-block:14px}.funnel-heading{margin-top:18px}.journey-v2.funnel-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 25px}.funnel-steps li{padding:10px 0;border:0}.funnel-steps li .mono{position:static}.funnel-steps h3{margin:5px 0;font-size:18px}.funnel-steps p{margin:0}.trigger-v2{margin-top:15px}
-.sheet a,.paper a,.thesis-links-v2 a{color:#354e0d;text-decoration:underline}.sheet button,.paper button,.screen-hint{display:none!important}
-.print-case{display:grid;grid-template-columns:240px 1fr;gap:34px}.print-case>img{width:100%;height:525px;object-fit:contain;object-position:top}.print-case .case-copy p{font-size:14px}.print-case .agent-reply{max-width:none}.print-case .section-lead{margin-top:0}
-.print-economy,.print-risk{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:start}.print-economy ul,.print-settings,.print-sources{padding-left:22px}.print-economy li,.print-settings li,.print-sources li{margin-bottom:10px}.print-settings{columns:2}.print-economy .results{display:block;padding:0}.result-number{font-size:54px}.result-split{padding:12px 0}.result-split strong{font-size:27px}.roi-card{padding:12px}.roi-heading{margin-bottom:10px}.roi-grid{gap:10px}.roi-grid strong{font-size:22px}
-.print-risk .risk-item{border-top:1px solid #ccc;border-bottom:0;padding:15px 0;break-inside:avoid}.print-risk .risk-evidence summary{color:#4a3975}.print-risk .pilot{padding:15px 0}.pilot .big-nine{color:#354e0d;font-size:60px}.team-grid{display:grid;gap:30px}.team-grid h2{display:none}.team-arguments>div{padding:6px 0}.team-arguments h3{margin:4px 0}.team-arguments p{margin:4px 0}
-`;document.head.append(css);
-return document.querySelectorAll('.paper,.sheet').length;
+for (const details of document.querySelectorAll('[data-print-open]')) details.open=true;
+return document.querySelectorAll('main > .sheet').length;
 })()'''
 
 class Browser:
@@ -123,7 +65,7 @@ def build(browser):
     browser.call('Emulation.setDeviceMetricsOverride',width=1001,height=688,deviceScaleFactor=1,mobile=False)
     browser.call('Emulation.setEmulatedMedia', media='print')
     browser.js('document.fonts.ready.then(()=>true)')
-    heights=browser.js('[...document.body.children].map(e=>[e.querySelector("h1,h2").textContent,Math.round(e.getBoundingClientRect().height)])')
+    heights=browser.js('[...document.querySelectorAll("main > .sheet")].map(e=>[e.querySelector("h1,h2").textContent,Math.round(e.getBoundingClientRect().height)])')
     pdf=base64.b64decode(browser.call('Page.printToPDF',preferCSSPageSize=True,printBackground=True)['data'])
     assert pdf.startswith(b'%PDF-') and len(pdf)>50_000
     pages=len(re.findall(rb'/Type /Page\b',pdf))
