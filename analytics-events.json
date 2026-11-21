@@ -6,6 +6,10 @@
   "site": "https://bavadim.github.io/bank-in-any-agent/",
   "sections": [
     {
+      "id": "vision",
+      "label": "Наше видение нового мира"
+    },
+    {
       "id": "thesis",
       "label": "Инвесторский питч"
     },
@@ -26,12 +30,12 @@
       "label": "Подтверждения и гипотеза"
     },
     {
-      "id": "risks",
-      "label": "MVP и риски"
+      "id": "pilot",
+      "label": "Скоуп MVP"
     },
     {
-      "id": "pilot",
-      "label": "Пилот и Demo Day"
+      "id": "risks",
+      "label": "Риски и ограничения"
     },
     {
       "id": "team",
